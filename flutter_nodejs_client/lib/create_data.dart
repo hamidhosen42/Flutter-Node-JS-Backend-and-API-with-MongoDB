@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_nodejs_client/services/api.dart';
 
 class CreateData extends StatefulWidget {
   const CreateData({super.key});
@@ -10,9 +11,9 @@ class CreateData extends StatefulWidget {
 }
 
 class _CreateDataState extends State<CreateData> {
-  TextEditingController nameController  = TextEditingController();
-  TextEditingController priceController  = TextEditingController();
-  TextEditingController descController  = TextEditingController();
+  var nameController = TextEditingController();
+  var priceController = TextEditingController();
+  var descController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,31 +27,38 @@ class _CreateDataState extends State<CreateData> {
             children: [
               TextField(
                 controller: nameController,
-                decoration:InputDecoration(
+                decoration: InputDecoration(
                   hintText: "Name Here",
                 ),
               ),
               TextField(
-                controller: nameController,
-                decoration:InputDecoration(
+                controller: priceController,
+                decoration: InputDecoration(
                   hintText: "Price Here",
                 ),
               ),
               TextField(
-                controller: nameController,
-                decoration:InputDecoration(
+                controller: descController,
+                decoration: InputDecoration(
                   hintText: "Desc Here",
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
-               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => CreateData()));
-                },
-                child: Text("CREATE Data")),
+              ElevatedButton(
+                  onPressed: () {
+                    // Navigator.push(
+                    //     context, MaterialPageRoute(builder: (_) => CreateData()));
+                    var data = {
+                      "pname": nameController.text,
+                      "pprice": priceController.text,
+                      "pdes": descController.text
+                    };
+
+                    Api.addproduct(data);
+                  },
+                  child: Text("CREATE Data")),
             ],
           ),
         ),

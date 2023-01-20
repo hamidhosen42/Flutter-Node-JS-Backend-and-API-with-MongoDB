@@ -15,27 +15,27 @@ app.use(
 
 const productData = [];
 
-app.listen(port, () => {
-  console.log("CRUD Server is running");
-});
-
 //---------server site---------------
 app.post("/api/add_product", async (req, res) => {
   const product = req.body;
   console.log("Result : ", req.body);
 
   const pdata = {
-    id: productData.length + 1,
-    pname: product.pname,
-    pprice: product.pprice,
-    pdes: product.pdes,
+    "id": productData.length + 1,
+    "pname": product.pname,
+    "pprice": product.pprice,
+    "pdes": product.pdes,
   };
   productData.push(pdata);
   console.log("Final: ", pdata);
 
-  res.status(5000).send({
-    status_code: 5000,
+  res.status(200).send({
+    status_code: 200,
     message: "Product added successfully",
     product: pdata,
   });
+});
+
+app.listen(port, () => {
+  console.log("CRUD Server is running");
 });
